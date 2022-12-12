@@ -30,6 +30,7 @@ public class NameInverterTest {
         assertInverted("First Last", "Last First");
     }
 
+    @Test
     public void givenASimpleNameWithSpaces_returnSimpleNameWithoutSpaces() {
         assertInverted(" Name ", "Name");
     }
@@ -45,6 +46,12 @@ public class NameInverterTest {
         assertInverted("Mrs. First Last", "Last First");
     }
 
+    @Test
+    public void postNominals_stayAtEnd() {
+        assertInverted("First Last Sr.", "Last First Sr.");
+        assertInverted("First Last BS. Phd.", "Last First BS. Phd.");
+    }
+
     private void assertInverted(String originalName, String invertedName) {
         assertEquals(invertedName, invertName(originalName));
     }
@@ -58,9 +65,22 @@ public class NameInverterTest {
                 names.remove(0);
             if (names.size() == 1)
                 return names.get(0);
-            else
-                return String.format("%s %s", names.get(1), names.get(0));
+            else {
+                String postNominal = "";
+                if (names.size() > 2) {
+                    postNominal = getPostNominals(names);
+                }
+                return String.format("%s %s %s", names.get(1), names.get(0), postNominal).trim();
+            }
         }
+    }
+
+    private static String getPostNominals(List<String> names) {
+        List<String> postNominals = names.subList(2, names.size());
+        StringBuilder postNominal = new StringBuilder();
+        for (String s : postNominals)
+            postNominal.append(s).append(" ");
+        return postNominal.toString();
     }
 
     private static boolean isHonorific(String word) {
