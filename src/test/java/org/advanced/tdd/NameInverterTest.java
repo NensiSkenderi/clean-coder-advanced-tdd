@@ -24,10 +24,12 @@ public class NameInverterTest {
     public void givenFirstLast_returnLastFirst(){
         assertInverted("First Last", "Last First");
     }
-
-    @Test
     public void givenASimpleNameWithSpaces_returnSimpleNameWithoutSpaces(){
         assertInverted(" Name ", "Name");
+    }
+    @Test
+    public void givenFirstLastWithExtraSpaces_returnLastFirst(){
+        assertInverted(" First     Last    ", "Last First");
     }
 
     private void assertInverted(String originalName, String invertedName) {
@@ -40,7 +42,7 @@ public class NameInverterTest {
         }
         else {
             name = name.trim();
-            String[] names = name.split(" ");
+            String[] names = name.split("\\s+"); //regex to check for extra spaces
             if(names.length == 1){
                 return name;
             }
