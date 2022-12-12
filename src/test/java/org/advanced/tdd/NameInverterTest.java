@@ -66,5 +66,4 @@ public class NameInverterTest {
        assertEquals(invertedName, nameInverter.invertName(originalName));
     }
 
-
 }

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NameInverter {
-    private static String getPostNominals(List<String> names) {
+    private String getPostNominals(List<String> names) {
         StringBuilder postNominalString = new StringBuilder();
         if (names.size() > 2) {
             List<String> postNominals = names.subList(2, names.size());
@@ -31,7 +31,7 @@ public class NameInverter {
     }
 
     private String formatMultiElementName(List<String> names) {
-        String postNominals = NameInverter.getPostNominals(names);
+        String postNominals = getPostNominals(names);
         String firstName = names.get(0);
         String lastName = names.get(1);
         return String.format("%s %s %s", lastName, firstName, postNominals).trim();
